@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
-import { withKnobs, select } from '@storybook/addon-knobs';
+import { NavLink, MemoryRouter } from 'react-router-dom';
+// import { withKnobs, select } from '@storybook/addon-knobs';
 import ButtonIcon from './ButtonIcon';
 import penIcon from 'assets/pen.svg';
 import logoutIcon from 'assets/logout.svg';
@@ -18,19 +19,23 @@ const YellowBackground = styled.div`
 `;
 
 export default {
-  title: 'ButtonIcon',
+  title: '/Atoms/ButtonIcon',
   component: ButtonIcon,
   decorators: [
     (Story) => (
       <YellowBackground>
-        <Story />
+        <MemoryRouter>
+          <Story />
+        </MemoryRouter>
       </YellowBackground>
     ),
   ],
 };
 
+export const ActivePenIcon = () => (
+  <ButtonIcon exact as={NavLink} to="/" icon={penIcon} activeClass="active" />
+);
 export const PenIcon = () => <ButtonIcon icon={penIcon} />;
-export const ActivePenIcon = () => <ButtonIcon active icon={penIcon} />;
 export const LogoutIcon = () => <ButtonIcon icon={logoutIcon} />;
 export const TwitterIcon = () => <ButtonIcon icon={twitterIcon} />;
 export const BulbIcon = () => <ButtonIcon icon={bulbIcon} />;

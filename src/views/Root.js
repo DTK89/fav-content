@@ -1,21 +1,27 @@
 import React from 'react';
-import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Redirect } from 'react-router-dom';
 import MainTemplate from 'templates/MainTemplate';
+import { routes } from 'routes/index';
+import DetailsPage from 'views/DetailsPage';
 import Notes from 'views/Notes';
 import Articles from 'views/Articles';
 import Twitters from 'views/Twitters';
 
 const Root = () => {
   return (
-    <MainTemplate>
-      <BrowserRouter>
+    <BrowserRouter>
+      <MainTemplate>
         <Switch>
-          <Route exact path="/" component={Notes} />
-          <Route path="/articles" component={Articles} />
-          <Route path="/twitters" component={Twitters} />
+          <Route exact path={routes.home} render={() => <Redirect to="/notes" />} />
+          <Route exact path={routes.notes} component={Notes} pageType="notes" />
+          <Route path={routes.note} component={DetailsPage} pageType="notes" />
+          <Route exact path={routes.articles} component={Articles} pageType="articles" />
+          <Route path={routes.article} component={DetailsPage} pageType="notes" />
+          <Route exact path={routes.twitters} component={Twitters} pageType="twitters" />
+          <Route path={routes.twitter} component={DetailsPage} pageType="notes" />
         </Switch>
-      </BrowserRouter>
-    </MainTemplate>
+      </MainTemplate>
+    </BrowserRouter>
   );
 };
 

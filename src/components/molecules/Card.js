@@ -1,5 +1,6 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Redirect } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Heading from 'components/atoms/Heading/Heading';
@@ -46,7 +47,7 @@ const DateInfo = styled(Paragraph)`
 const StyledAvatar = styled.img`
   width: 86px;
   height: 86px;
-  border: 5px solid ${({ theme }) => theme.twitter};
+  border: 5px solid ${({ theme }) => theme.twitters};
   border-radius: 50%;
   position: absolute;
   right: 20px;
@@ -66,35 +67,55 @@ const StyledLink = styled.a`
   top: 20px;
 `;
 
-const Card = ({ cardType }) => (
-  <StyledWrapper>
-    <InnerWrapper activeColor={cardType}>
-      <StyledHeading>Hi Dave</StyledHeading>
-      <DateInfo>3 days ago</DateInfo>
-      {cardType === 'article' && <StyledLink href="www.google.com" />}
-      {cardType === 'twitter' && <StyledAvatar src="https://unavatar.now.sh/twitter/hello_roman" />}
-    </InnerWrapper>
-    <InnerWrapper flex>
-      <Paragraph>
-        Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
-        been the standard dummy text ever since the 1500s, when an unknown printer took a galley of
-        type and scrambled it to make a type specimen book. It has survived not only five centuries,
-        but also the leap into electronic typesetting, remaining essentially unchanged. It was
-        popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum
-        passages, and more recently with desktop publishing software like Aldus PageMaker including
-        versions of Lorem Ipsum.
-      </Paragraph>
-      <Button secondary>REMOVE</Button>
-    </InnerWrapper>
-  </StyledWrapper>
-);
+class Card extends Component {
+  state = {
+    redirect: false,
+  };
+
+  handleCardClick = () => this.setState({ redirect: true });
+
+  render() {
+    const { id, cardType, title, created, articleUrl, twitterImgName, content } = this.props;
+    const { redirect } = this.state;
+
+    if (redirect) {
+      return <Redirect to={`${cardType}/${id}`} />;
+    }
+
+    return (
+      <StyledWrapper onClick={this.handleCardClick}>
+        <InnerWrapper activeColor={cardType}>
+          <StyledHeading>{title}</StyledHeading>
+          <DateInfo>{created}</DateInfo>
+          {cardType === 'articles' && <StyledLink href={articleUrl} />}
+          {cardType === 'twitters' && (
+            <StyledAvatar src={`http://twivatar.glitch.me/${twitterImgName}`} />
+          )}
+        </InnerWrapper>
+        <InnerWrapper flex>
+          <Paragraph>{content}</Paragraph>
+          <Button secondary>REMOVE</Button>
+        </InnerWrapper>
+      </StyledWrapper>
+    );
+  }
+}
 
 Card.propTypes = {
-  cardType: PropTypes.oneOf(['note', 'twitter', 'article']),
+  id: PropTypes.number.isRequired,
+  cardType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  title: PropTypes.string.isRequired,
+  created: PropTypes.string.isRequired,
+  articleUrl: PropTypes.string,
+  twitterImgName: PropTypes.string,
+  content: PropTypes.string,
 };
 
 Card.defaultProps = {
-  cardType: 'note',
+  cardType: 'notes',
+  articleUrl: 'www.google.com',
+  twitterImgName: null,
+  content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
 };
 
 export default Card;
