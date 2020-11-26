@@ -6,10 +6,10 @@ import Input from 'components/atoms/Input/Input';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 
-// const StyledWrapper = styled.div`
-//   padding: 25px 150px 25px 70px;
-//   height: 100vh;
-// `;
+const StyledWrapper = styled.div`
+  padding: 25px 150px 25px 70px;
+  height: 100vh;
+`;
 
 const StyledCardGrid = styled.div`
   display: grid;
@@ -36,14 +36,16 @@ const StyledHeaderParagraph = styled(Paragraph)`
 
 const GridTemplate = ({ children, pageType }) => (
   <UserPageTemplate pageType={pageType}>
-    <StyledPageHeader>
-      <Input search placeholder="search" />
-      <StyledHeading big as="h1">
-        {pageType}
-      </StyledHeading>
-      <StyledHeaderParagraph>6 {pageType}</StyledHeaderParagraph>
-    </StyledPageHeader>
-    <StyledCardGrid>{children}</StyledCardGrid>
+    <StyledWrapper>
+      <StyledPageHeader>
+        <Input search placeholder="search" />
+        <StyledHeading big as="h1">
+          {pageType}
+        </StyledHeading>
+        <StyledHeaderParagraph>6 {pageType}</StyledHeaderParagraph>
+      </StyledPageHeader>
+      <StyledCardGrid>{children}</StyledCardGrid>
+    </StyledWrapper>
   </UserPageTemplate>
 );
 

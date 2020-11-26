@@ -65,6 +65,7 @@ const StyledLink = styled.a`
   position: absolute;
   right: 20px;
   top: 20px;
+  text-overflow: ellipsis; // <--
 `;
 
 class Card extends Component {

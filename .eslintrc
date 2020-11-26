@@ -15,7 +15,7 @@
   "plugins": ["react", "prettier"],
   "ignorePatterns": ["reportWebVitals.js", "setupTests.js", "*.stories.js"],
   "rules": {
-
+    "react/destructuring-assignment": [ 0, "error", { "ignoreClassFields": true }],
     "import/no-extraneous-dependencies": [ "error", {"devDependencies": true}],
     "import/prefer-default-export": 0,
     "prettier/prettier": "error",
