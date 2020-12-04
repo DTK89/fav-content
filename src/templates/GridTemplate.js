@@ -5,6 +5,7 @@ import UserPageTemplate from 'templates/UserPageTemplate';
 import Input from 'components/atoms/Input/Input';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
+import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
   padding: 25px 150px 25px 70px;
@@ -34,15 +35,15 @@ const StyledHeaderParagraph = styled(Paragraph)`
   font-weight: ${({ theme }) => theme.light};
 `;
 
-const GridTemplate = ({ children, pageType }) => (
-  <UserPageTemplate pageType={pageType}>
+const GridTemplate = ({ children, pageTypeContext }) => (
+  <UserPageTemplate>
     <StyledWrapper>
       <StyledPageHeader>
         <Input search placeholder="search" />
         <StyledHeading big as="h1">
-          {pageType}
+          {pageTypeContext}
         </StyledHeading>
-        <StyledHeaderParagraph>6 {pageType}</StyledHeaderParagraph>
+        <StyledHeaderParagraph>6 {pageTypeContext}</StyledHeaderParagraph>
       </StyledPageHeader>
       <StyledCardGrid>{children}</StyledCardGrid>
     </StyledWrapper>
@@ -51,11 +52,11 @@ const GridTemplate = ({ children, pageType }) => (
 
 GridTemplate.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object).isRequired,
-  pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']).isRequired,
+  pageTypeContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
 };
 
-GridTemplate.defaultProp = {
-  pageType: 'notes',
+GridTemplate.defaultProps = {
+  pageTypeContext: 'notes',
 };
 
-export default GridTemplate;
+export default withContext(GridTemplate);

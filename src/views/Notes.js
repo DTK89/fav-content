@@ -28,7 +28,6 @@ Notes.propTypes = {
   notes: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']).isRequired,
       title: PropTypes.string.isRequired,
       created: PropTypes.string.isRequired,
       content: PropTypes.string.isRequired,

@@ -46,7 +46,7 @@ const StyledLogoutLink = styled(ButtonIcon)`
 
 const Sidebar = ({ barType }) => (
   <StyledNavWrapper activeColor={barType}>
-    <StyledLogoWrapper to="/" />
+    <StyledLogoWrapper to="/notes" />
     <StyledButtonWrapper>
       <ButtonIcon as={NavLink} to="/notes" icon={penIcon} activeclass="active" />
       <ButtonIcon as={NavLink} to="/twitters" icon={twitterIcon} activeclass="active" />

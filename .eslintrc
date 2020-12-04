@@ -15,6 +15,7 @@
   "plugins": ["react", "prettier"],
   "ignorePatterns": ["reportWebVitals.js", "setupTests.js", "*.stories.js"],
   "rules": {
+    "react/jsx-props-no-spreading": 1,
     "react/prop-types": 1,
     "react/destructuring-assignment": [ 0, "error", { "ignoreClassFields": true }],
     "import/no-extraneous-dependencies": [ "error", {"devDependencies": true}],

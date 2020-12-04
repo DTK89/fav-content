@@ -2,12 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
-// import { routes } from 'routes/index';
 import UserPageTemplate from 'templates/UserPageTemplate';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import Button from 'components/atoms/Button/Button';
 import LinkIcon from 'assets/link.svg';
+import withContext from 'hoc/withContext';
 
 const StyledWrapper = styled.div`
   padding: 25px 150px 25px 70px;
@@ -69,20 +69,27 @@ const StyledButtonArea = styled.div`
   align-items: center;
 `;
 
-const DetailsTemplate = ({ pageType, title, created, articleUrl, twitterImgName, content }) => (
-  <UserPageTemplate pageType={pageType}>
+const DetailsTemplate = ({
+  pageTypeContext,
+  title,
+  created,
+  articleUrl,
+  twitterImgName,
+  content,
+}) => (
+  <UserPageTemplate>
     <StyledWrapper>
       <StyledHeader>
         <StyledTitle>{title}</StyledTitle>
         <StyledDateInfo>{created}</StyledDateInfo>
-        {pageType === 'twitters' && (
+        {pageTypeContext === 'twitters' && (
           <StyledAvatar src={`http://twivatar.glitch.me/${twitterImgName}`} />
         )}
-        {pageType === 'articles' && <StyledLink href={articleUrl} />}
+        {pageTypeContext === 'articles' && <StyledLink href={articleUrl} />}
       </StyledHeader>
       <StyledDescription>{content}</StyledDescription>
       <StyledButtonArea>
-        <Button as={Link} to={`/${pageType}`} activecolor={pageType}>
+        <Button as={Link} to={`/${pageTypeContext}`} activecolor={pageTypeContext}>
           CLOSE/SAVE
         </Button>
         <Button secondary>REMOVE</Button>
@@ -93,19 +100,18 @@ const DetailsTemplate = ({ pageType, title, created, articleUrl, twitterImgName,
 
 DetailsTemplate.propTypes = {
   // id: PropTypes.number.isRequired,
-  pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  pageTypeContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,
   articleUrl: PropTypes.string,
   twitterImgName: PropTypes.string,
-  content: PropTypes.string,
+  content: PropTypes.string.isRequired,
 };
 
 DetailsTemplate.defaultProps = {
-  pageType: 'notes',
+  pageTypeContext: 'notes',
   articleUrl: 'www.google.com',
   twitterImgName: null,
-  content: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry.',
 };
 
-export default DetailsTemplate;
+export default withContext(DetailsTemplate);

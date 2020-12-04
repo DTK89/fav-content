@@ -49,6 +49,11 @@ class DetailsPage extends Component {
   }
 }
 
+// const mapStateToProps = (state) => {
+//   const { {pageType} } = state;
+//   return { {pageType} };
+// };
+
 DetailsPage.propTypes = {
   match: PropTypes.shape({ path: PropTypes.string }).isRequired,
   // match: PropTypes.shape({ params: PropTypes.shape({ id: PropTypes.string }) }).isRequired,
