@@ -6,8 +6,11 @@ import Input from 'components/atoms/Input/Input';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
 import withContext from 'hoc/withContext';
+import ButtonIcon from 'components/atoms/ButtonIcon/ButtonIcon';
+import plusIcon from 'assets/plus.svg';
 
 const StyledWrapper = styled.div`
+  /* position: relative; */
   padding: 25px 150px 25px 70px;
   height: 100vh;
 `;
@@ -35,6 +38,17 @@ const StyledHeaderParagraph = styled(Paragraph)`
   font-weight: ${({ theme }) => theme.light};
 `;
 
+const StyledAddButton = styled(ButtonIcon)`
+  height: 50px;
+  width: 50px;
+  border-radius: 50%;
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  background-size: 40%;
+  background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
+`;
+
 const GridTemplate = ({ children, pageTypeContext }) => (
   <UserPageTemplate>
     <StyledWrapper>
@@ -46,6 +60,7 @@ const GridTemplate = ({ children, pageTypeContext }) => (
         <StyledHeaderParagraph>6 {pageTypeContext}</StyledHeaderParagraph>
       </StyledPageHeader>
       <StyledCardGrid>{children}</StyledCardGrid>
+      <StyledAddButton icon={plusIcon} activeclass="active" activeColor={pageTypeContext} />
     </StyledWrapper>
   </UserPageTemplate>
 );

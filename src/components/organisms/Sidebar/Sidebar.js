@@ -44,8 +44,8 @@ const StyledLogoutLink = styled(ButtonIcon)`
   margin-top: auto;
 `;
 
-const Sidebar = ({ barType }) => (
-  <StyledNavWrapper activeColor={barType}>
+const Sidebar = ({ pageTypeContext }) => (
+  <StyledNavWrapper activeColor={pageTypeContext}>
     <StyledLogoWrapper to="/notes" />
     <StyledButtonWrapper>
       <ButtonIcon as={NavLink} to="/notes" icon={penIcon} activeclass="active" />
@@ -57,11 +57,11 @@ const Sidebar = ({ barType }) => (
 );
 
 Sidebar.propTypes = {
-  barType: PropTypes.oneOf(['notes', 'twitters', 'articles']),
+  pageTypeContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
 };
 
 Sidebar.defaultProps = {
-  barType: 'notes',
+  pageTypeContext: 'notes',
 };
 
 export default Sidebar;

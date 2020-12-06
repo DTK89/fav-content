@@ -5,11 +5,10 @@ import GridTemplate from 'templates/GridTemplate';
 import Card from 'components/molecules/Card';
 
 const Articles = ({ articles }) => (
-  <GridTemplate pageType="articles">
+  <GridTemplate>
     {articles.map((item) => (
       <Card
         id={item.id}
-        cardType="articles"
         title={item.title}
         content={item.content}
         created={item.created}
@@ -29,7 +28,7 @@ Articles.propTypes = {
   articles: PropTypes.arrayOf(
     PropTypes.shape({
       id: PropTypes.number.isRequired,
-      pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']).isRequired,
+      // pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']).isRequired,
       title: PropTypes.string.isRequired,
       created: PropTypes.string.isRequired,
       articleUrl: PropTypes.string.isRequired,
