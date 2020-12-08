@@ -27,8 +27,7 @@ const mapStateToProps = (state) => {
 Articles.propTypes = {
   articles: PropTypes.arrayOf(
     PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      // pageType: PropTypes.oneOf(['notes', 'twitters', 'articles']).isRequired,
+      id: PropTypes.string.isRequired,
       title: PropTypes.string.isRequired,
       created: PropTypes.string.isRequired,
       articleUrl: PropTypes.string.isRequired,

@@ -25,7 +25,7 @@ const InnerWrapper = styled.div`
   background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
 
   :first-of-type {
-    z-index: 99;
+    z-index: 90;
   }
 
   ${({ flex }) =>
@@ -68,7 +68,8 @@ const StyledLink = styled.a`
   position: absolute;
   right: 20px;
   top: 20px;
-  text-overflow: ellipsis; // <--
+  text-overflow: ellipsis;
+  z-index: 91; // <--
 `;
 
 class Card extends Component {
@@ -117,7 +118,7 @@ class Card extends Component {
 }
 
 Card.propTypes = {
-  id: PropTypes.number.isRequired,
+  id: PropTypes.string.isRequired,
   pageTypeContext: PropTypes.oneOf(['notes', 'twitters', 'articles']),
   title: PropTypes.string.isRequired,
   created: PropTypes.string.isRequired,

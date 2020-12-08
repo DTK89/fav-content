@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import styled from 'styled-components';
 import UserPageTemplate from 'templates/UserPageTemplate';
+import NewItemBar from 'components/organisms/NewItemBar/NewItemBar';
 import Input from 'components/atoms/Input/Input';
 import Heading from 'components/atoms/Heading/Heading';
 import Paragraph from 'components/atoms/Paragraph/Paragraph';
@@ -45,25 +46,48 @@ const StyledAddButton = styled(ButtonIcon)`
   position: fixed;
   bottom: 30px;
   right: 30px;
+  z-index: 110;
   background-size: 40%;
   background-color: ${({ activeColor, theme }) => (activeColor ? theme[activeColor] : 'white')};
 `;
 
-const GridTemplate = ({ children, pageTypeContext }) => (
-  <UserPageTemplate>
-    <StyledWrapper>
-      <StyledPageHeader>
-        <Input search placeholder="search" />
-        <StyledHeading big as="h1">
-          {pageTypeContext}
-        </StyledHeading>
-        <StyledHeaderParagraph>6 {pageTypeContext}</StyledHeaderParagraph>
-      </StyledPageHeader>
-      <StyledCardGrid>{children}</StyledCardGrid>
-      <StyledAddButton icon={plusIcon} activeclass="active" activeColor={pageTypeContext} />
-    </StyledWrapper>
-  </UserPageTemplate>
-);
+class GridTemplate extends Component {
+  state = {
+    isNewItemBarVisible: false,
+  };
+
+  handleNewItemBarDisplay = () =>
+    this.setState((prevState) => ({
+      isNewItemBarVisible: !prevState.isNewItemBarVisible,
+    }));
+
+  render() {
+    const { children, pageTypeContext } = this.props;
+    const { isNewItemBarVisible } = this.state;
+
+    return (
+      <UserPageTemplate>
+        <StyledWrapper>
+          <StyledPageHeader>
+            <Input search placeholder="search" />
+            <StyledHeading big as="h1">
+              {pageTypeContext}
+            </StyledHeading>
+            <StyledHeaderParagraph>6 {pageTypeContext}</StyledHeaderParagraph>
+          </StyledPageHeader>
+          <StyledCardGrid>{children}</StyledCardGrid>
+          <StyledAddButton
+            onClick={this.handleNewItemBarDisplay}
+            icon={plusIcon}
+            activeclass="active"
+            activeColor={pageTypeContext}
+          />
+        </StyledWrapper>
+        <NewItemBar handleClose={this.handleNewItemBarDisplay} isVisible={isNewItemBarVisible} />
+      </UserPageTemplate>
+    );
+  }
+}
 
 GridTemplate.propTypes = {
   children: PropTypes.arrayOf(PropTypes.object).isRequired,
